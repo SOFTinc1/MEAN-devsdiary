@@ -1,0 +1,46 @@
+<!-- <mat-card>
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+  <form (submit)="onSavePost(postForm)" #postForm="ngForm" *ngIf="!isLoading">
+    <mat-form-field>
+      <input matInput type="text" name="title" [ngModel]="post?.title" required #title="ngModel" placeholder="post title">
+      <mat-error *ngIf="title.invalid"> please enter a valid title </mat-error>
+    </mat-form-field>
+    <br> <br>
+    <div>
+      <button class="mat-stroked-button" type="button" (click)="imagePicker.click()">upload image</button>
+      <input type="file" #imagePicker>
+    </div>
+    <br>
+    <mat-form-field>
+      <textarea matInput rows="5" name="content" [ngModel]="post?.content" required #content="ngModel" placeholder="postcontent"></textarea>
+      <mat-error *ngIf="content.invalid"> enter a valid content</mat-error>
+    </mat-form-field>
+    <button color="primary" mat-raised-button type="submit">save post</button>
+  </form>
+</mat-card> -->
+
+
+<mat-card>
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+  <form [formGroup]="form" (submit)="onSavePost()" *ngIf="!isLoading">
+    <mat-form-field>
+      <input matInput type="text" formControlName="title" placeholder="post title">
+      <mat-error *ngIf="form.get('title').invalid"> please enter a valid title </mat-error>
+    </mat-form-field>
+    <br> <br>
+    <div>
+      <button class="mat-stroked-button" type="button" (click)="imagePicker.click()">upload image</button>
+      <input type="file" #imagePicker (change)="onImagePicked($event)">
+    </div>
+    <div class="image-preview" *ngIf="imagePreview !== '' && imagePreview &&  form.get('image').valid">
+      <img [src]="imagePreview" [alt]="form.value.title">
+    </div>
+    <br>
+    <mat-form-field>
+      <textarea matInput rows="5" formControlName="content" placeholder="postcontent"></textarea>
+      <mat-error *ngIf="form.get('content').invalid"> enter a valid content</mat-error>
+    </mat-form-field>
+    <button color="primary" mat-raised-button type="submit">save post</button>
+  </form>
+</mat-card>
+
